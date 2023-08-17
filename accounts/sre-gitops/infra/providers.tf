@@ -4,11 +4,11 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "sre-git-ops-tf-states"
-    key    = "global/services/sre-git-ops-tfs.tfstate"
+    bucket = "git-sre-ops-tf-states"
+    key    = "global/services/git-sre-ops-tfs.tfstate"
     region = "us-east-1"
     encrypt        = true
-    dynamodb_table = "global-sre-git-ops-files-terraform-table"
+    dynamodb_table = "global-git-sre-ops-files-terraform-table"
   }
 }
 
