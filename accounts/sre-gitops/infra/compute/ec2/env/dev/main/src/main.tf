@@ -69,7 +69,7 @@ resource "aws_ec2_serial_console_access" "http-nodes-access-serial-console" {
 resource "aws_security_group" "http-nodes-allow-access-sg" {
   name        = "http-nodes-allow-access-sg"
   description = "allow ssh and http nodes inbound traffic"
-  vpc_id      = "vpc-058bb3f363566ef46"
+  vpc_id      = var.vpc_dev
   
   
   ingress {
