@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "http-nodes-dev" {
+data "aws_iam_policy_document" "http_nodes_dev" {
 
     version = "2012-10-17"
 
@@ -17,34 +17,34 @@ data "aws_iam_policy_document" "http-nodes-dev" {
 
 }
 
-resource "aws_iam_role" "http-nodes-dev" {
-        name = "http-nodes-dev"
-        assume_role_policy = data.aws_iam_policy_document.http-nodes-dev.json
+resource "aws_iam_role" "http_nodes_dev" {
+        name = "http_nodes_dev"
+        assume_role_policy = data.aws_iam_policy_document.http_nodes_dev.json
 
     }
 
-resource "aws_iam_role_policy_attachment" "http-nodes-dev_lambda" {
+resource "aws_iam_role_policy_attachment" "http_nodes_dev_lambda" {
     policy_arn = "arn:aws:iam::aws:policy/AWSLambda_FullAccess"
-    role = aws_iam_role.http-nodes-dev.name
+    role = aws_iam_role.http_nodes_dev.name
 }
 
-resource "aws_iam_role_policy_attachment" "http-nodes-dev_core" {
+resource "aws_iam_role_policy_attachment" "http_nodes_dev_instance_core" {
     policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-    role = aws_iam_role.http-nodes-dev.name
+    role = aws_iam_role.http_nodes_dev.name
 }
 
-resource "aws_iam_role_policy_attachment" "http-nodes-dev_agent-gw" {
+resource "aws_iam_role_policy_attachment" "http_nodes_dev_agent-gw" {
     policy_arn = "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
-    role = aws_iam_role.http-nodes-dev.name
+    role = aws_iam_role.http_nodes_dev.name
 }
 
-resource "aws_iam_role_policy_attachment" "http-nodes-dev_ecr-read" {
+resource "aws_iam_role_policy_attachment" "http_nodes_dev_ecr-read" {
     policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-    role = aws_iam_role.http-nodes-dev.name
+    role = aws_iam_role.http_nodes_dev.name
 }
 
-resource "aws_iam_policy" "http-nodes-dev_anothers_policy" {
-  name        = "http-nodes-dev_anothers_policy"
+resource "aws_iam_policy" "http_nodes_dev_anothers_policy" {
+  name        = "http_nodes_dev_anothers_policy"
   description = "policy full resources to api xray,ssm,appmesh,service-discovery,s3,prometheus,kafka,lambda,elbs-albs-nlbs,sqs,asgs in your behalf."
 
   policy = <<EOF
@@ -197,8 +197,8 @@ resource "aws_iam_policy" "http-nodes-dev_anothers_policy" {
 EOF
 }
 
-resource "aws_iam_policy" "http-nodes-dev_anothers_wafv2_policy" {
-  name        = "http-nodes-dev_anothers_wafv2_policy"
+resource "aws_iam_policy" "http_nodes_dev_anothers_wafv2_policy" {
+  name        = "http_nodes_dev_anothers_wafv2_policy"
   description = "policy full resources to api wafv2 in your behalf."
 
  policy = <<EOF
@@ -345,8 +345,8 @@ resource "aws_iam_policy" "http-nodes-dev_anothers_wafv2_policy" {
 EOF
 }
 
-resource "aws_iam_policy" "http-nodes-dev_elbsv2_policy" {
-  name        = "http-nodes-dev_elbsv2-group_policy"
+resource "aws_iam_policy" "http_nodes_dev_elbsv2_policy" {
+  name        = "http_nodes_dev_elbsv2-group_policy"
   description = "policy full resources to api elbsv2 in your behalf."
 
  policy = <<EOF
@@ -572,22 +572,22 @@ resource "aws_iam_policy" "http-nodes-dev_elbsv2_policy" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "http-nodes-dev_elbsv2_policy" {
-    role = aws_iam_role.http-nodes-dev.name
-    policy_arn = aws_iam_policy.http-nodes-dev_elbsv2_policy.arn
+resource "aws_iam_role_policy_attachment" "http_nodes_dev_elbsv2_policy" {
+    role = aws_iam_role.http_nodes_dev.name
+    policy_arn = aws_iam_policy.http_nodes_dev_elbsv2_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "http-nodes-dev_anothers_policy" {
-    role = aws_iam_role.http-nodes-dev.name
-    policy_arn = aws_iam_policy.http-nodes-dev_anothers_policy.arn
+resource "aws_iam_role_policy_attachment" "http_nodes_dev_anothers_policy" {
+    role = aws_iam_role.http_nodes_dev.name
+    policy_arn = aws_iam_policy.http_nodes_dev_anothers_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "http-nodes-dev_anothers_wafv2_policy" {
-    role = aws_iam_role.http-nodes-dev.name
-    policy_arn = aws_iam_policy.http-nodes-dev_anothers_wafv2_policy.arn
+resource "aws_iam_role_policy_attachment" "http_nodes_dev_anothers_wafv2_policy" {
+    role = aws_iam_role.http_nodes_dev.name
+    policy_arn = aws_iam_policy.http_nodes_dev_anothers_wafv2_policy.arn
 }
 
-resource "aws_iam_instance_profile" "http-nodes-dev" {
-    name  = "http-nodes-dev"
-    role = aws_iam_role.http-nodes-dev.name
+resource "aws_iam_instance_profile" "http_nodes_dev" {
+    name  = "http_nodes_dev"
+    role = aws_iam_role.http_nodes_dev.name
 }

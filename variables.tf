@@ -9,39 +9,33 @@ variable "vpc_dev" {
   default     = "vpc-dev"
 }
 
-variable "vpc_cidr_block_dev" {
-  description = "The top-level CIDR block for the VPC."
-  default     = "11.0.0.0/20"
-}
-
-variable "secondary_vpc_cidr_block_dev" {
-  description = "The top-level Secondary CIDR block for the VPC."
-  default     = "12.0.0.0/20"
-}
-
 variable "cidr_blocks" {
-  description = "The CIDR blocks to create the workstations in."
-  default     = ["11.0.2.0/23", "11.0.4.0/23", "11.0.6.0/23", "11.0.8.0/23", "11.0.10.0/23", "11.0.12.0/23", "12.0.2.0/23", "12.0.4.0/23", "12.0.6.0/23", "12.0.8.0/23", "12.0.10.0/23", "12.0.12.0/23"]
+  description = "CIDR Block From VPC"
+  default = "11.0.0.0/16"
 }
 
-# variable "public_subnets" {
-#  description = "The CIDR blocks to create the workstations in."
-#  default     = ["11.0.2.0/23", "11.0.4.0/23", "11.0.6.0/23", "12.0.0.0/23", "12.0.2.0/23", "12.0.4.0/23"]
-#  
-#}
-
-variable "public_subnets_dev" {
-  type        = string
-  default     = null
+# Defining CIDR Block Public for 1st Subnet
+variable "subnet0_pub_cidr" {
+  default = "11.0.2.0/23"
+}
+# Defining CIDR Block Public for 2nd Subnet
+variable "subnet1_pub_cidr" {
+  default = "11.0.4.0/23"
+}
+# Defining CIDR Block Public for 3rd Subnet
+variable "subnet2_pub_cidr" {
+  default = "11.0.6.0/23"
 }
 
-# variable "private_subnets" {
-#  description = "The CIDR blocks to create the workstations in."
-#  default     = ["11.0.8.0/23", "11.0.10.0/23", "11.0.12.0/23", "12.0.6.0/23", "12.0.8.0/23", "12.0.10.0/23"]
-#  
-#}
-
-variable "private_subnets_dev" {
-  type        = string
-  default     = null
+# Defining CIDR Block Private for 1st Subnet
+variable "subnet0_priv_cidr" {
+  default = "11.0.8.0/23"
+}
+# Defining CIDR Block Private for 2nd Subnet
+variable "subnet1_priv_cidr" {
+  default = "11.0.10.0/23"
+}
+# Defining CIDR Block Private for 3rd Subnet
+variable "subnet2_priv_cidr" {
+  default = "11.0.12.0/23"
 }

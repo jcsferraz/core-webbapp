@@ -17,15 +17,13 @@ data "aws_ami" "amazon-linux-2" {
 }
 
 resource "aws_instance" "node-http" {
-  ami             = data.aws_ami.amazon-linux-2.id
-  instance_type   = "t3.micro"
-  count           = 1 
-  iam_instance_profile = aws_iam_instance_profile.http_nodes_dev.name
-  key_name        = "http_nodes_dev"
-  // subnet_id       = "subnet-0a9ba9d2e5dcd203a"
-  subnet_id       = aws_subnet.private_subnets_dev["us-east-1a"].id
-  vpc_security_group_ids = [aws_security_group.http-nodes-allow-access-sg.id]
-  // user_data = file("./account/vops-cloud/services/openshift-community/envs/dev/nodes/src/install_openshift-community-nodes.sh")
+  ami                               = data.aws_ami.amazon-linux-2.id
+  instance_type                     = "t3.micro"
+  iam_instance_profile              = aws_iam_instance_profile.http_nodes_dev.name
+  key_name                          = "http_nodes_dev"
+  subnet_id                         = var.subnet0_priv_cidr
+  vpc_security_group_ids            = [aws_security_group.http-nodes-allow-access-sg.id]
+  // user_data = file("./account/nodes.sh")
   
 
    root_block_device {
@@ -57,13 +55,8 @@ resource "aws_instance" "node-http" {
     Team             = "consulteanuvem-com-br-dev"
     Customer_Group   = "consulteanuvem-dev"
     Resource         = "environment_at_dev"
-    "kubernetes.io/cluster/community-openshift-cluster" = "owned"
    
   }
-}
-
-resource "aws_ec2_serial_console_access" "http-nodes-access-serial-console" {
-   enabled = true
 }
 
 resource "aws_security_group" "http-nodes-allow-access-sg" {
@@ -76,23 +69,58 @@ resource "aws_security_group" "http-nodes-allow-access-sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    description = "rule for allow access in the openshift-community-nodes-api-server  from internal internal-vpcs-jacto-corp environment"
-    cidr_blocks = ["11.0.12.0/23"]
+    description = "rule for allow access  from internal-subnet-environment"
+    cidr_blocks = ["11.0.2.0/23"]
   }
   
   ingress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    description = "rule for allow access in the http-nodes from internal internal-vpcs-dev environment"
-    cidr_blocks = ["11.0.2.0/23"]
+    description = "rule for allow access in the http-nodes from internal-subnet-environment"
+    cidr_blocks = ["11.0.4.0/23"]
   }
   
+ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    description = "rule for allow access in the http-nodes from internal-subnet-environment"
+    cidr_blocks = ["11.0.6.0/23"]
+  }
+
+    
+ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    description = "rule for allow access in the http-nodes from internal-subnet-environment"
+    cidr_blocks = ["11.0.8.0/23"]
+  }
+
+  
+ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    description = "rule for allow access in the http-nodes from internal-subnet-environment"
+    cidr_blocks = ["11.0.10.0/23"]
+  }
+
+    
+ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    description = "rule for allow access in the http-nodes from internal-subnet-environment"
+    cidr_blocks = ["11.0.12.0/23"]
+  }
+
   egress {
     from_port       = 0
     to_port         = 0
     protocol        = "-1"
-    description = "rule for allow output access in the http-nodes  from internal-vpcs-dev environment"
+    description = "rule for allow output access in the http-nodes internal-subnet-environment"
     cidr_blocks     = ["0.0.0.0/0"]
   }
 
