@@ -22,7 +22,8 @@ resource "aws_instance" "node-http" {
   count           = 1 
   iam_instance_profile = aws_iam_instance_profile.http_nodes_dev.name
   key_name        = "http_nodes_dev"
-  subnet_id       = "subnet-0a9ba9d2e5dcd203a"
+  // subnet_id       = "subnet-0a9ba9d2e5dcd203a"
+  subnet_id       = aws_subnet.private_subnets_dev["us-east-1a"].id
   vpc_security_group_ids = [aws_security_group.http-nodes-allow-access-sg.id]
   // user_data = file("./account/vops-cloud/services/openshift-community/envs/dev/nodes/src/install_openshift-community-nodes.sh")
   
