@@ -12,20 +12,23 @@ This is how we are implementing IaC at _core-webbapp.
 ```sh
 .
 ├── README.md
+├── accounts
 ├── sre-gitops
 │   ├── infra
+│   │   ├── applications --> Contains all resources that are owned by an application
+│   │   │   ├── webb-app-api
+│   │   │   └── webb-app-v2-api
 │   │   ├── compute --> Contains all resources that are owned by an application
 │   │   │   ├── ec2
-│   │   │       └── env
-│   │   ├── data-store --> Contains all resources that are owned by an application
+│   │   │       └── env --> Contains environments for one or more accounts
+│   │   ├── data-store --> Contains data stores resources that are shared or not by applications
 │   │   │   ├── dynamodb
-│   │   │       └── env
+│   │   │       └── env --> Contains environments for one or more accounts
 │   │   ├── network --> Contains data stores resources that are shared or not by applications
 │   │   │   ├── vpc
-│   │   │       └── env
+│   │   │       └── env --> Contains environments for one or more accounts
 │   │   └── services --> Contains resources that are shared across applications
-│   │       ├── ec2s
-│   │       └── eks
+│   │   │       └── eks --> 
 ....
 └── terragrunt.hcl
 ```
