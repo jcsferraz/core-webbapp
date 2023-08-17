@@ -1,19 +1,5 @@
-provider "aws" {
-  region  = var.aws_region
-}
-
-terraform {
-  backend "s3" {
-    bucket = "git-sre-ops-tf-states"
-    key    = "global/services/git-sre-ops-tfs.tfstate"
-    region = "us-east-1"
-    encrypt        = true
-    dynamodb_table = "global-git-sre-ops-files-terraform-table"
-  }
-}
-
 module "network_vpc_dev" {
-  source  = "./accounts/sre-gitops/infra/network/env/dev/main/src"
+  source  = "./accounts/sre-gitops/infra/network/vpc/env/dev/main/src"
   vpc_cidr_block           = var.vpc_cidr_block_dev
   cidr_blocks              = var.cidr_blocks
   secondary_vpc_cidr_block = var.secondary_vpc_cidr_block_dev
@@ -36,13 +22,14 @@ module "network_vpc_dev" {
   ]
 }
 
+
 module "dynamodb_global_tables_dev" {
- source  = "./accounts/sre-gitops/infra/data-stores/dynamodb/env/dev/main/src"
+ source  = "./accounts/sre-gitops/infra/data-store/dynamodb/env/dev/main/src"
 }
 
 
 module "http_nodes_dev" {
- source  = "./accounts/sre-gitops/infra/compute/env/dev/main/src"
+ source  = "./accounts/sre-gitops/infra/compute/ec2/env/dev/main/src"
   vpc  = var.vpc_dev
   vpc_cidr_block = var.vpc_cidr_block_dev
   cidr_blocks    = var.cidr_blocks
